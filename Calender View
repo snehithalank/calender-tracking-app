@@ -1,0 +1,33 @@
+import React, { useState } from "react";
+
+function Calendar() {
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const daysInMonth = new Date(selectedDate.getFullYear(), selectedDate.getMonth() + 1, 0).getDate();
+  const startDay = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1).getDay();
+
+  const handleDateClick = (day) => {
+    setSelectedDate(new Date(selectedDate.getFullYear(), selectedDate.getMonth(), day));
+  };
+
+  const renderCalendarDays = () => {
+    const days = [];
+    for (let i = 1; i <= daysInMonth; i++) {
+      days.push(
+        <button onClick={() => handleDateClick(i)} key={i}>
+          {i}
+        </button>
+      );
+    }
+    return days;
+  };
+
+  return (
+    <div>
+      <h2>{selectedDate.toLocaleString("default", { month: "long" })} {selectedDate.getFullYear()}</h2>
+      <div>{renderCalendarDays()}</div>
+    </div>
+  );
+}
+
+export default Calendar;
